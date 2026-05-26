@@ -1255,6 +1255,51 @@
       </section>
     </main>
 
+    <!-- 팝업창 -->
+    <dialog id="popup" class="popup">
+        <h2 class="text-h1">오르미 부트캠프 신청 <br> 사이트 리뉴얼 프로젝트</h2>
+        <p class="text-qna">본 사이트는 팀 프로젝트 포트폴리오 사이트입니다.</p>
+        <hr>
+        <ul class="text-body-b">
+          <li>과정명: 오르미 프론트엔드 13기</li>
+          <li>제작 기간: 2026.04.30 ~ 2026.05.12</li>
+          <li>개발환경: HTML, CSS</li>
+          <li>소스 관리: Github</li>
+        </ul>
+        <div class="popupBtn d-flex">
+          <input type="checkbox" id="agree">
+          <label for="agree">오늘 하루 안보기</label>
+          <button>x</button>
+        </div>
+  </dialog>
+
+  <script>
+    const popup = document.querySelector('#popup');
+    const CloseBtn = popup.querySelector('button');
+    const agree = document.querySelector('#agree');
+
+    if (document.cookie.includes('popup=none')) {
+      popup.close();
+    } else {
+      popup.showModal();
+    }
+
+    CloseBtn.addEventListener('click', () => {
+      popup.close();
+      if (agree.checked) {
+        createPopup('popup', 'none', 1);
+      } else {
+        createPopup('popup', 'none', -1);
+      }
+    });
+
+    function createPopup(name, value, expire) {
+      let today = new Date();
+      today.setDate(today.getDate() + expire);
+      document.cookie = `${name}=${value}; Expires=${today.toUTCString()}`;
+    }
+  </script>
+
     <!-- 푸터 : 황시원 -->
     <footer class="footer">
       <div class="inner d-flex flex-column g-1">
