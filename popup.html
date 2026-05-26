@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>popup_cookie</title>
+  <style>
+    .popup{
+      position: fixed;
+      left: 50px;
+      top: 50px;
+      padding: 20px 40px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 187, 39, 0.6);
+      border-radius: 20px;
+      border: none;
+      list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <dialog id="popup" class="popup">
+    <h1>오르미 부트캠프 신청 <br> 사이트 리뉴얼 프로젝트</h1>
+    <p>본 사이트는 팀 프로젝트 포트폴리오 사이트입니다.</p>
+    <hr>
+    <ul>
+      <li>과정명:오르미 프론트엔드 13기</li>
+      <li>제작 기간:2026.04.30 ~ 2026.05.12</li>
+      <li>개발환경:HTML,CSS</li>
+      <li>소스 관리:Github</li>
+    </ul>
+    <input type="checkbox" id="agree">
+    <label for="agree">오늘 하루 안보기</label>
+    <button>x</button>
+  </dialog>
+  <script>
+    const popup = document.querySelector('#popup');
+    const CloseBtn = popup.querySelector('button');
+    const agree = document.querySelector('#agree');
+
+    if(document.cookie.includes('popup=none')){
+      popup.close();
+    }else{
+      popup.showModal();
+    }
+
+    //close Btn 클릭 시 popup 안 보임
+    CloseBtn.addEventListener('click',()=>{
+      popup.close();
+      if(agree.checked){
+        createPopup('popup', 'none', 1);
+      }else{
+        createPopup('popup', 'none', -1);
+      }
+    });
+
+    // 쿠키 생성
+    function createPopup(name,value,expire){
+      let today = new Date();
+      today.setDate(today.getDate() + expire );
+      document.cookie = `${name}=${value}; Expires=${today.toUTCString()}`;
+     }
+  </script>
+</body>
+</html>
